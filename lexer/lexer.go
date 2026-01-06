@@ -50,9 +50,12 @@ func (lexer *Lexer) isSpace(char string) bool {
 func (lexer *Lexer) readNumber() string {
 	num := ""
 	currentchar := lexer.getCurrentChar()
-	for lexer.position < lexer.inputLength && lexer.isDigit(currentchar) {
+	for lexer.isDigit(currentchar) {
 		num += currentchar
 		lexer.jump()
+		if lexer.position >= lexer.inputLength {
+			break
+		}
 		currentchar = lexer.getCurrentChar()
 	}
 	return num
@@ -61,9 +64,12 @@ func (lexer *Lexer) readNumber() string {
 func (lexer *Lexer) readIdentifier() string {
 	identifier := ""
 	currentChar := lexer.getCurrentChar()
-	for lexer.position < lexer.inputLength && lexer.isLetter(currentChar) {
+	for lexer.isLetter(currentChar) {
 		identifier += currentChar
 		lexer.jump()
+		if lexer.position >= lexer.inputLength {
+			break
+		}
 		currentChar = lexer.getCurrentChar()
 	}
 	return identifier
@@ -71,8 +77,11 @@ func (lexer *Lexer) readIdentifier() string {
 
 func (lexer *Lexer) skipSpace() {
 	currentchar := lexer.getCurrentChar()
-	for lexer.position < lexer.inputLength && lexer.isSpace(currentchar) {
+	for lexer.isSpace(currentchar) {
 		lexer.jump()
+		if lexer.position >= lexer.inputLength {
+			break
+		}
 		currentchar = lexer.getCurrentChar()
 	}
 }
