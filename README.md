@@ -173,14 +173,6 @@ result: 0.5
 result: 0.999999327347282
 ```
 
-## Development
-
-### Running Tests
-
-```bash
-go test ./...
-```
-
 ### Code Structure Notes
 
 - The **visitor pattern** is used to separate AST structure from operations (evaluation, pretty-printing, etc.)
