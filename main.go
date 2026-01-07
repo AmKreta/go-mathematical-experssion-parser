@@ -4,18 +4,15 @@ import (
 	"fmt"
 
 	Lexer "github.com/AmKreta/golang-expression-parser/lexer"
-	Token "github.com/AmKreta/golang-expression-parser/token"
+	Parser "github.com/AmKreta/golang-expression-parser/parser"
 )
 
 func main() {
-	input := "1 + 2 * 3 /4  * sin(45)"
+	input := "1 + 2!"
 	lexer := Lexer.New(input)
+	parser := Parser.New(lexer)
+	expression := parser.Parse()
+	fmt.Println(expression)
 
-	for {
-		token := lexer.GetNextToken()
-		if token.Type == Token.EOF {
-			break
-		}
-		fmt.Println(token)
-	}
+	fmt.Println(expression)
 }
