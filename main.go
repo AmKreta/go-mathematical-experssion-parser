@@ -3,16 +3,17 @@ package main
 import (
 	"fmt"
 
+	Interpreter "github.com/AmKreta/golang-expression-parser/interpreter"
 	Lexer "github.com/AmKreta/golang-expression-parser/lexer"
 	Parser "github.com/AmKreta/golang-expression-parser/parser"
 )
 
 func main() {
-	input := "1 + 2!"
+	input := "1 + 5!"
 	lexer := Lexer.New(input)
 	parser := Parser.New(lexer)
-	expression := parser.Parse()
-	fmt.Println(expression)
 
-	fmt.Println(expression)
+	interpreter := Interpreter.NewInterpreter(parser)
+	result := interpreter.Interpret()
+	fmt.Println(result)
 }

@@ -15,3 +15,15 @@ func (b *BinaryOperator) AcceptVisitor(visitor Visitor[ComputeSize]) ComputeSize
 func NewBinaryOperator(left Node, right Node, operator token.TokenType) *BinaryOperator {
 	return &BinaryOperator{left: left, right: right, operator: operator}
 }
+
+func (b *BinaryOperator) GetLeft() Node {
+	return b.left
+}
+
+func (b *BinaryOperator) GetRight() Node {
+	return b.right
+}
+
+func (b *BinaryOperator) GetOperator() token.TokenType {
+	return b.operator
+}

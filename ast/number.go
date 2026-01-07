@@ -11,3 +11,7 @@ func (num *Number) AcceptVisitor(visitor Visitor[ComputeSize]) ComputeSize {
 func NewNumber(value ComputeSize) *Number {
 	return &Number{value: ComputeSize(value)}
 }
+
+func (num *Number) GetValue() ComputeSize {
+	return num.value
+}

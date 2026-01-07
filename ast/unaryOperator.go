@@ -14,3 +14,11 @@ func (u *UnaryOperator) AcceptVisitor(visitor Visitor[ComputeSize]) ComputeSize 
 func NewUnaryOperator(operator token.TokenType, operand Node) *UnaryOperator {
 	return &UnaryOperator{operator: operator, operand: operand}
 }
+
+func (u *UnaryOperator) GetOperator() token.TokenType {
+	return u.operator
+}
+
+func (u *UnaryOperator) GetOperand() Node {
+	return u.operand
+}
