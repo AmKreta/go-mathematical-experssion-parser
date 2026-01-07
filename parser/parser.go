@@ -62,12 +62,32 @@ func (parser *Parser) parseFactor() ast.Node {
 }
 
 func (parser *Parser) parseUnaryExpression() ast.Node {
-	unary := parser.parseFactor()
-	for parser.currentToken.IsUnaryTypeToken() {
+	var unary ast.Node
+
+	if parser.currentToken.IsPrefixUnaryTypeToken() {
 		op := parser.currentToken
 		parser.eat(op)
-		unary = ast.NewUnaryOperator(op.Type, unary)
+		if parser.currentToken.IsBracketOpenTypeToken() {
+			parser.eat(parser.currentToken)
+			expression := parser.parseExpression()
+			if parser.currentToken.IsBracketCloseTypeToken() {
+				parser.eat(parser.currentToken)
+			} else {
+				panic(fmt.Sprintf("expected token type %s, got %s", Token.TokenNames[Token.PARENTHESIS_CLOSE], Token.TokenNames[parser.currentToken.Type]))
+			}
+			unary = ast.NewUnaryOperator(op.Type, expression)
+		} else {
+			panic(fmt.Sprintf("expected token type %s, got %s", Token.TokenNames[Token.PARENTHESIS_OPEN], Token.TokenNames[parser.currentToken.Type]))
+		}
+	} else {
+		unary = parser.parseFactor()
+		for parser.currentToken.IsSuffixUnaryTypeToken() {
+			op := parser.currentToken
+			parser.eat(op)
+			unary = ast.NewUnaryOperator(op.Type, unary)
+		}
 	}
+
 	return unary
 }
 
@@ -107,5 +127,7 @@ func (parser *Parser) Parse() ast.Node {
   additive_expression -> multiplicative_expression (('+' | '-') multiplicative_expression)*
   multiplicative_expression -> unary_expression (('*' | '/' | '%' | '//', '^') unary_expression)*
   unary_expression -> factor (('!', | 'sin' | 'cos' | 'tan' | 'cot' | 'sec' | 'cosec' | log)factor)*
+  prefix_unary_expression -> ('sin' | 'cos' | 'tan' | 'cot' | 'sec' | 'cosec' | log)(factor | prefix_unary_expression | suffix_unary_expression)*
+  suffix_unary_expression -> factor!
   factor -> number | 'pi' | '(' expression ')' | '[' expression ']' | '{' expression '}'
 */

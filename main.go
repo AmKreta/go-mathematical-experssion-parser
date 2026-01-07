@@ -9,10 +9,9 @@ import (
 )
 
 func main() {
-	input := "1 + 5!"
+	input := "1 + log(1024)"
 	lexer := Lexer.New(input)
 	parser := Parser.New(lexer)
-
 	interpreter := Interpreter.NewInterpreter(parser)
 	result := interpreter.Interpret()
 	fmt.Println(result)

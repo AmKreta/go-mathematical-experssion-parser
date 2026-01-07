@@ -42,3 +42,19 @@ func (t *Token) IsUnaryTypeToken() bool {
 func (t *Token) isFactorTypeToken() bool {
 	return t.Type == NUMBER || t.Type == PI || t.Type == PARENTHESIS_OPEN || t.Type == Square_Bracket_Open || t.Type == Curly_Bracket_Open
 }
+
+func (t *Token) IsPrefixUnaryTypeToken() bool {
+	return t.Type == LOGARITHM || t.Type == SINE || t.Type == COSINE || t.Type == TANGENT || t.Type == COTANGENT || t.Type == SECANT || t.Type == COSECANT
+}
+
+func (t *Token) IsSuffixUnaryTypeToken() bool {
+	return t.Type == FACTORIAL
+}
+
+func (t *Token) IsBracketOpenTypeToken() bool {
+	return t.Type == PARENTHESIS_OPEN || t.Type == Square_Bracket_Open || t.Type == Curly_Bracket_Open
+}
+
+func (t *Token) IsBracketCloseTypeToken() bool {
+	return t.Type == PARENTHESIS_CLOSE || t.Type == Square_Bracket_Close || t.Type == Curly_Bracket_Close
+}

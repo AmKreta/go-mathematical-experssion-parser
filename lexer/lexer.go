@@ -149,6 +149,8 @@ func (lexer *Lexer) GetNextToken() *token.Token {
 	if isLetter {
 		identifier := lexer.readIdentifier()
 		switch identifier {
+		case token.TokenTypeValMap[token.LOGARITHM]:
+			return token.NewToken(token.LOGARITHM)
 		case token.TokenTypeValMap[token.SINE]:
 			return token.NewToken(token.SINE)
 		case token.TokenTypeValMap[token.COSINE]:
