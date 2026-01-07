@@ -163,6 +163,8 @@ func (lexer *Lexer) GetNextToken() *token.Token {
 			return token.NewToken(token.SECANT)
 		case token.TokenTypeValMap[token.COSECANT]:
 			return token.NewToken(token.COSECANT)
+		case token.TokenTypeValMap[token.PI]:
+			return token.NewToken(token.PI)
 		}
 	}
 
